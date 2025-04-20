@@ -1,9 +1,16 @@
 "use client";
 
-import { Button } from "@components/shadcn/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@components/shadcn/ui/select";
 import { Locale, usePathname, useRouter } from "i18n/routing";
 import { useLocale, useTranslations } from "next-intl";
 import React, { useEffect, useState, useTransition } from "react";
+import LoadingSpinner from "./LoadingSpinner";
 
 const LanguageSelector: React.FC = () => {
   const t = useTranslations("frontpage");
@@ -27,51 +34,34 @@ const LanguageSelector: React.FC = () => {
   }
 
   return (
-    <div>
-      <Button onClick={() => alert('miau')}>Miau</Button>
-      <div style={{ position: "relative" }}></div>
-        <select
-          style={{
-            color: "white",
-            backgroundColor: "transparent",
-            padding: "8px 24px 8px 8px",
-            border: "1px solid #ccc",
-            borderRadius: "4px",
-            appearance: "none",
-            width: "100%"
-          }}
-          onChange={onSelectChange}
-          value={language}
-        >
-          <option value="en">English</option>
-          <option value="es">Español</option>
-        </select>
-        {isPending ? (
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <div 
-              style={{ 
-                width: "20px", 
-                height: "20px", 
-                border: "2px solid white",
-                borderTopColor: "transparent",
-                borderRadius: "50%",
-                animation: "spin 1s linear infinite"
-              }} 
-            />
-            <style jsx>{`
-              @keyframes spin {
-                to { transform: rotate(360deg); }
-              }
-            `}</style>
-          </div>
-        ) : (
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <span style={{ marginRight: "8px" }}>🌐</span>
-            <span>{t(`language.${language}`)}</span>
-          </div>
-        )}
-        <span style={{ position: "absolute", right: "8px", top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}>▼</span>
+    <>
+      <div>
+        <div style={{ position: "relative" }}>
+          <Select
+            onValueChange={(value) => {
+              const mockEvent = {
+                target: { value },
+              } as React.ChangeEvent<HTMLSelectElement>;
+              onSelectChange(mockEvent);
+            }}
+            value={language}
+          >
+            <SelectTrigger className="w-[120px]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="en">{t('language.en')}</SelectItem>
+              <SelectItem value="es">{t('language.es')}</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
+      {isPending && (
+        <div className="absolute -right-6 top-1/2 -translate-y-1/2 flex items-center">
+          <LoadingSpinner />
+        </div>
+      )}
+    </>
   );
 };
 

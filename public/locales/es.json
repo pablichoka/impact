@@ -1,3 +1,10 @@
 {
-  "hello": "Hola"
+  "frontpage": {
+    "title": "Página de inicio",
+    "description": "Bienvenido a nuestra página de inicio",
+    "language": {
+      "es": "Español",
+      "en": "Inglés"
+    }
+  }
 }

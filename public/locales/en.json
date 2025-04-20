@@ -1,3 +1,10 @@
 {
-  "hello": "Hello"
+  "frontpage": {
+    "title": "Frontpage",
+    "description": "Welcome to our frontpage",
+    "language": {
+      "es": "Spanish",
+      "en": "English"
+    }
+  }
 }
