@@ -35,7 +35,7 @@ export default async function RootLayout({ children, params }: Props) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NextIntlClientProvider messages={{ messagesModule }}>
+        <NextIntlClientProvider messages={messagesModule}>
           {children}
         </NextIntlClientProvider>
       </body>
