@@ -1,5 +1,20 @@
 import LanguageSelector from "@components/custom/LanguageSelector";
 import LoginForm from "@components/custom/LoginForm";
+import { Card, CardContent } from "@components/shadcn/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@components/shadcn/ui/carousel";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@components/shadcn/ui/tabs";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -7,17 +22,45 @@ export default function Home() {
       <div className="fixed top-4 left-4 z-50">
         <LanguageSelector />
       </div>
+      {/* Ensure the main container takes full height */}
+      <div className="flex h-screen w-full items-stretch justify-center bg-gray-100">
+        {/* Left section (Carousel) */}
+        <div className="w-3/5 p-4 m-8 flex flex-col">
+          <Carousel
+            className="w-full h-full grow"
+            opts={{
+              loop: true,
+            }}
+          >
+            <CarouselContent className="h-[80vh] flex">
+              {Array.from({ length: 5 }).map((_, index) => (
+                <CarouselItem key={index} className="h-3/5 flex"></CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="ml-8"/>
+            <CarouselNext className="mr-8"/>
+          </Carousel>
+        </div>
 
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-        <h1 className="text-4xl font-bold mb-4">Welcome to the App</h1>
-        <p className="text-lg mb-8">Please log in to continue</p>
-        <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
-          <h2 className="text-2xl font-semibold mb-4">Login</h2>
-          <p className="text-gray-600 mb-4">
-            Please enter your credentials below:
-          </p>
-          <div className="mb-4">
-            <LoginForm />
+        {/* Right section (Login/Signup) */}
+        {/* Remove self-center, add flex, flex-col, justify-center, items-center */}
+        {/* Remove m-8 margin, adjust padding if needed */}
+        <div className="w-2/5 p-4 flex flex-col justify-center items-center bg-yellow-100"> {/* Added bg-white for clarity */}
+          {/* Remove m-8 margin from inner container */}
+          <div className="w-full max-w-sm p-8 rounded-lg items-center ">
+            <Tabs defaultValue="account" className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="account">Login</TabsTrigger>
+                <TabsTrigger value="password">Sign up</TabsTrigger>
+              </TabsList>
+              <TabsContent value="account">
+                <LoginForm />
+              </TabsContent>
+              <TabsContent value="password">
+                {/* Placeholder for Signup Form */}
+                <p>Sign up form will go here.</p>
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
       </div>
