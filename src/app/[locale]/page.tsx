@@ -23,7 +23,7 @@ export default function Home() {
         <LanguageSelector />
       </div>
       {/* Ensure the main container takes full height */}
-      <div className="flex h-screen w-full items-stretch justify-center bg-gray-100">
+      <div className="flex h-screen w-full items-stretch justify-center bg-black">
         {/* Left section (Carousel) */}
         <div className="w-3/5 p-4 m-8 flex flex-col">
           <Carousel
