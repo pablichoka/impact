@@ -12,36 +12,41 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import "@styles/globals.css";
+import { useTranslations } from "next-intl"; // Import useTranslations
 
-const loginFormValidationSchema = z.object({
-  username: z.string().min(1, {message: "Introduzca su nombre de usuario"}),
-  password: z.string().min(1, {message: "Introduzca su contraseña"}),
+const loginFormValidationSchema = (t: (key: string) => string) => z.object({ // Pass t function
+  username: z.string().min(1, {message: t("usernameRequired")}), // Use t for validation message
+  password: z.string().min(1, {message: t("passwordRequired")}), // Use t for validation message
     // .string()
     // .min(8, {
-    //   message: "La contraseña debe tener al menos 8 caracteres.",
+    //   message: t("passwordMinLength"),
     // })
     // .max(30, {
-    //   message: "La contraseña no puede tener más de 30 caracteres.",
+    //   message: t("passwordMaxLength"),
     // })
     // .regex(/[a-z]/, {
-    //   message: "La contraseña debe contener al menos una letra minúscula.",
+    //   message: t("passwordLowercase"),
     // })
     // .regex(/[A-Z]/, {
-    //   message: "La contraseña debe contener al menos una letra mayúscula.",
+    //   message: t("passwordUppercase"),
     // })
     // .regex(/[0-9]/, {
-    //   message: "La contraseña debe contener al menos un número.",
+    //   message: t("passwordNumber"),
     // })
     // .regex(/[^a-zA-Z0-9]/, {
-    //   message: "La contraseña debe contener al menos un carácter especial.",
+    //   message: t("passwordSpecialChar"),
     // }),
 });
 
-type LoginFormValues = z.infer<typeof loginFormValidationSchema>;
+type LoginFormValues = z.infer<ReturnType<typeof loginFormValidationSchema>>;
 
 export default function LoginForm() {
+  const t = useTranslations("frontpage.LoginForm"); 
+  const currentSchema = loginFormValidationSchema(t);
+
   const form = useForm<LoginFormValues>({
-    resolver: zodResolver(loginFormValidationSchema),
+    resolver: zodResolver(currentSchema), // Use the generated schema
     defaultValues: {
       username: "",
       password: "",
@@ -51,18 +56,18 @@ export default function LoginForm() {
 
   return (
     <>
-      <div className="flex-grow rounded-lg p-4 bg-gray border-2 mt-2 w-full">
+      <div className="flex-grow rounded-lg p-4 background mt-2 w-full">
         <Form {...form}>
           <FormField
             control={form.control}
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>{t("usernameLabel")}</FormLabel> {/* Translate label */}
                 <FormControl>
-                  <input {...field} className="border-1 rounded-md p-1" />
+                  <input {...field} className="border-1 border-gray-500 rounded-md p-1 " />
                 </FormControl>
-                <FormMessage className="text-xs" />
+                <FormMessage className="text-xs text-background" />
               </FormItem>
             )}
           />
@@ -72,15 +77,15 @@ export default function LoginForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>{t("passwordLabel")}</FormLabel> {/* Translate label */}
                 <FormControl>
                   <input
                     {...field}
                     type="password"
-                    className="border-1 rounded-md p-1"
+                    className="border-1 border-gray-500 rounded-md p-1"
                   />
                 </FormControl>
-                <FormMessage className="text-xs" />
+                <FormMessage className="text-xs text-background" />
               </FormItem>
             )}
           />
@@ -88,9 +93,9 @@ export default function LoginForm() {
       </div>
       <Button
         onClick={form.handleSubmit((data) => console.log(data))}
-        className="w-full mt-4"
+        className="w-full mt-4 bg-background text-foreground"
       >
-        Log in
+        {t("loginButton")} {/* Translate button text */}
       </Button>
     </>
   );

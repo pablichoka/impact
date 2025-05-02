@@ -1,7 +1,21 @@
 {
-  "frontpage": {
-    "title": "Página de inicio",
-    "description": "Bienvenido a nuestra página de inicio",
+  "common": {
+    "theme": {
+      "dark": "Oscuro",
+      "light": "Claro"
+    }
+  },
+  "frontpage": {    
+    "LoginForm": {
+      "usernameRequired": "El nombre de usuario es obligatorio",
+      "passwordRequired": "La contraseña es obligatoria",
+      "usernameLabel": "Nombre de usuario",
+      "passwordLabel": "Contraseña",
+      "loginButton": "Iniciar sesión",
+      "loginTab": "Iniciar sesión",
+      "signUpTab": "Registrarse",
+      "signUpPlaceholder": "Regístrate para obtener una cuenta"
+    },
     "language": {
       "es": "Español",
       "en": "Inglés"

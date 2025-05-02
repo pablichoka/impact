@@ -1,7 +1,21 @@
 {
+  "common": {
+    "theme": {
+      "dark": "Dark",
+      "light": "Light"
+    }
+  },
   "frontpage": {
-    "title": "Frontpage",
-    "description": "Welcome to our frontpage",
+    "LoginForm": {
+      "usernameRequired": "Username is required",
+      "passwordRequired": "Password is required",
+      "usernameLabel": "Username",
+      "passwordLabel": "Password",
+      "loginButton": "Log in",
+      "loginTab": "Login",
+      "signUpTab": "Sign up",
+      "signUpPlaceholder": "Sign up for an account"
+    },
     "language": {
       "es": "Spanish",
       "en": "English"

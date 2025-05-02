@@ -14,16 +14,18 @@ import {
   TabsList,
   TabsTrigger,
 } from "@components/shadcn/ui/tabs";
-import Image from "next/image";
+import { useTranslations } from "next-intl"; // Import the hook
 
 export default function Home() {
+  const t = useTranslations("frontpage"); // Initialize the hook
+
   return (
     <>
       <div className="fixed top-4 left-4 z-50">
         <LanguageSelector />
       </div>
       {/* Ensure the main container takes full height */}
-      <div className="flex h-screen w-full items-stretch justify-center bg-black">
+      <div className="flex h-screen w-full items-stretch justify-center background">
         {/* Left section (Carousel) */}
         <div className="w-3/5 p-4 m-8 flex flex-col">
           <Carousel
@@ -42,23 +44,20 @@ export default function Home() {
           </Carousel>
         </div>
 
-        {/* Right section (Login/Signup) */}
-        {/* Remove self-center, add flex, flex-col, justify-center, items-center */}
-        {/* Remove m-8 margin, adjust padding if needed */}
-        <div className="w-2/5 p-4 flex flex-col justify-center items-center bg-yellow-100"> {/* Added bg-white for clarity */}
-          {/* Remove m-8 margin from inner container */}
-          <div className="w-full max-w-sm p-8 rounded-lg items-center ">
+        <div className="w-2/5 p-4 flex flex-col justify-center items-center bg-primary text-black">
+          <div className="w-full max-w-sm p-8 rounded-lg items-center">
             <Tabs defaultValue="account" className="w-full">
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="account">Login</TabsTrigger>
-                <TabsTrigger value="password">Sign up</TabsTrigger>
+                {/* Corrected translation key */}
+                <TabsTrigger value="account">{t('LoginForm.loginTab')}</TabsTrigger>
+                <TabsTrigger value="password">{t('LoginForm.signUpTab')}</TabsTrigger>
               </TabsList>
               <TabsContent value="account">
                 <LoginForm />
               </TabsContent>
               <TabsContent value="password">
-                {/* Placeholder for Signup Form */}
-                <p>Sign up form will go here.</p>
+                 {/* Use translation for placeholder text */}
+                <p>{t('LoginForm.signUpPlaceholder')}</p>
               </TabsContent>
             </Tabs>
           </div>
