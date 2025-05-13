@@ -42,11 +42,11 @@ const loginFormValidationSchema = (t: (key: string) => string) => z.object({ // 
 type LoginFormValues = z.infer<ReturnType<typeof loginFormValidationSchema>>;
 
 export default function LoginForm() {
-  const t = useTranslations("frontpage.LoginForm"); 
+  const t = useTranslations("frontpage.loginForm"); 
   const currentSchema = loginFormValidationSchema(t);
 
   const form = useForm<LoginFormValues>({
-    resolver: zodResolver(currentSchema), // Use the generated schema
+    resolver: zodResolver(currentSchema),
     defaultValues: {
       username: "",
       password: "",
@@ -56,7 +56,7 @@ export default function LoginForm() {
 
   return (
     <>
-      <div className="flex-grow rounded-lg p-4 background mt-2 w-full">
+      <div className="flex-grow rounded-lg p-2 background mt-2 w-full">
         <Form {...form}>
           <FormField
             control={form.control}
@@ -71,7 +71,7 @@ export default function LoginForm() {
               </FormItem>
             )}
           />
-          <div className="mb-4" />
+          <div className="mb-2" />
           <FormField
             control={form.control}
             name="password"

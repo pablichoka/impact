@@ -6,7 +6,7 @@
     }
   },
   "frontpage": {
-    "LoginForm": {
+    "loginForm": {
       "usernameRequired": "Username is required",
       "passwordRequired": "Password is required",
       "usernameLabel": "Username",
@@ -19,6 +19,9 @@
     "language": {
       "es": "Spanish",
       "en": "English"
+    },
+    "map": {
+      "title": "Find us here!"
     }
   }
 }

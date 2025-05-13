@@ -6,7 +6,7 @@
     }
   },
   "frontpage": {    
-    "LoginForm": {
+    "loginForm": {
       "usernameRequired": "El nombre de usuario es obligatorio",
       "passwordRequired": "La contraseña es obligatoria",
       "usernameLabel": "Nombre de usuario",
@@ -19,6 +19,9 @@
     "language": {
       "es": "Español",
       "en": "Inglés"
+    },
+    "map": {
+      "title": "¡Estamos aqui!"
     }
   }
 }
