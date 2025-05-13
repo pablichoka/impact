@@ -63,11 +63,11 @@ export default function LoginForm() {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("usernameLabel")}</FormLabel> {/* Translate label */}
+                <FormLabel>{t("usernameLabel")}</FormLabel>
                 <FormControl>
                   <input {...field} className="border-1 border-gray-500 rounded-md p-1 " />
                 </FormControl>
-                <FormMessage className="text-xs text-background" />
+                <FormMessage className="text-xs" />
               </FormItem>
             )}
           />
@@ -85,7 +85,7 @@ export default function LoginForm() {
                     className="border-1 border-gray-500 rounded-md p-1"
                   />
                 </FormControl>
-                <FormMessage className="text-xs text-background" />
+                <FormMessage className="text-xs" />
               </FormItem>
             )}
           />
