@@ -13,37 +13,26 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import "@styles/globals.css";
-import { useTranslations } from "next-intl"; // Import useTranslations
+import { useTranslations } from "next-intl";
+import Link from "next/link";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
+import { useRouter } from "next/navigation";
 
-const loginFormValidationSchema = (t: (key: string) => string) => z.object({ // Pass t function
-  username: z.string().min(1, {message: t("usernameRequired")}), // Use t for validation message
-  password: z.string().min(1, {message: t("passwordRequired")}), // Use t for validation message
-    // .string()
-    // .min(8, {
-    //   message: t("passwordMinLength"),
-    // })
-    // .max(30, {
-    //   message: t("passwordMaxLength"),
-    // })
-    // .regex(/[a-z]/, {
-    //   message: t("passwordLowercase"),
-    // })
-    // .regex(/[A-Z]/, {
-    //   message: t("passwordUppercase"),
-    // })
-    // .regex(/[0-9]/, {
-    //   message: t("passwordNumber"),
-    // })
-    // .regex(/[^a-zA-Z0-9]/, {
-    //   message: t("passwordSpecialChar"),
-    // }),
-});
+const loginFormValidationSchema = (t: (key: string) => string) =>
+  z.object({
+    username: z.string().min(1, { message: t("usernameRequired") }),
+    password: z.string().min(1, { message: t("passwordRequired") }),
+  });
 
 type LoginFormValues = z.infer<ReturnType<typeof loginFormValidationSchema>>;
 
 export default function LoginForm() {
-  const t = useTranslations("frontpage.loginForm"); 
+  const t = useTranslations("frontpage.loginForm");
   const currentSchema = loginFormValidationSchema(t);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const router = useRouter();
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(currentSchema),
@@ -65,7 +54,10 @@ export default function LoginForm() {
               <FormItem>
                 <FormLabel>{t("usernameLabel")}</FormLabel>
                 <FormControl>
-                  <input {...field} className="border-1 border-gray-500 rounded-md p-1 " />
+                  <input
+                    {...field}
+                    className="border-1 border-gray-500 rounded-md p-1 "
+                  />
                 </FormControl>
                 <FormMessage className="text-xs" />
               </FormItem>
@@ -77,26 +69,41 @@ export default function LoginForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("passwordLabel")}</FormLabel> {/* Translate label */}
+                <FormLabel>{t("passwordLabel")}</FormLabel>
                 <FormControl>
-                  <input
-                    {...field}
-                    type="password"
-                    className="border-1 border-gray-500 rounded-md p-1"
-                  />
+                  <div className="relative">
+                    <input
+                      {...field}
+                      type={showPassword ? "text" : "password"}
+                      className="border-1 border-gray-500 rounded-md p-1 w-full"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2"
+                    >
+                      {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </button>
+                  </div>
                 </FormControl>
                 <FormMessage className="text-xs" />
               </FormItem>
             )}
           />
         </Form>
+        <Button
+          onClick={form.handleSubmit((data) => {
+            console.log(data);
+            router.push("/dashboard");
+          })}
+          className="w-full mt-4 bg-background text-foreground"
+        >
+          {t("loginButton")}
+        </Button>
+        <Link href="/forgot-password">
+          <p className="text-xs text-right mt-2">{t("forgotPassword")}</p>
+        </Link>
       </div>
-      <Button
-        onClick={form.handleSubmit((data) => console.log(data))}
-        className="w-full mt-4 bg-background text-foreground"
-      >
-        {t("loginButton")} {/* Translate button text */}
-      </Button>
     </>
   );
 }

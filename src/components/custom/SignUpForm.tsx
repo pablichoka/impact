@@ -14,6 +14,8 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import "@styles/globals.css";
 import { useTranslations } from "next-intl";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 const signUpFormValidationSchema = (t: (key: string) => string) =>
   z
@@ -43,6 +45,8 @@ type SignUpFormValues = z.infer<ReturnType<typeof signUpFormValidationSchema>>;
 export default function SignUpForm() {
   const t = useTranslations("frontpage.signupForm");
   const currentSchema = signUpFormValidationSchema(t);
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm<SignUpFormValues>({
     resolver: zodResolver(currentSchema),
@@ -123,11 +127,20 @@ export default function SignUpForm() {
               <FormItem>
                 <FormLabel>{t("passwordLabel")}</FormLabel>
                 <FormControl>
-                  <input
-                    {...field}
-                    type="password"
-                    className="border-1 border-gray-500 rounded-md p-1 w-full"
-                  />
+                  <div className="relative">
+                    <input
+                      {...field}
+                      type={showPassword ? "text" : "password"}
+                      className="border-1 border-gray-500 rounded-md p-1 w-full"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2"
+                    >
+                      {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </button>
+                  </div>
                 </FormControl>
                 <FormMessage className="text-xs" />
               </FormItem>

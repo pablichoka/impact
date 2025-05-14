@@ -2,7 +2,7 @@
 
 import LanguageSelector from "@components/custom/LanguageSelector";
 import LoginForm from "@components/custom/LoginForm";
-import { AdvancedMarker, APIProvider, Map } from "@vis.gl/react-google-maps";
+import { Map } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -20,35 +20,53 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import SignUpForm from "@components/custom/SignUpForm";
 import { Button } from "@components/shadcn/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ImpactMap from "@components/custom/Map";
 
 export default function Home() {
   const t = useTranslations("frontpage");
   const [showMap, setShowMap] = useState(false);
+  const [renderMapModalContent, setRenderMapModalContent] = useState(false);
+
+  useEffect(() => {
+    if (showMap) {
+      setRenderMapModalContent(true);
+    } else {
+      const timer = setTimeout(() => {
+        setRenderMapModalContent(false);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [showMap]);
 
   return (
     <>
-      {showMap && (
+      <div
+        className={`fixed inset-0 z-50 flex items-center justify-center
+                   transition-opacity duration-500 ease-in-out
+                   ${
+                     showMap ? "opacity-100" : "opacity-0 pointer-events-none"
+                   }`}
+        onClick={() => setShowMap(false)}
+      >
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center"
-          onClick={() => setShowMap(false)}
+          className={`relative rounded-lg max-w-3xl w-11/12 md:w-full
+                     transform transition-all duration-500 ease-in-out
+                     ${showMap ? "opacity-100" : "opacity-0"}`}
+          onClick={(e) => e.stopPropagation()}
         >
-          <div
-            className="relative rounded-lg max-w-3xl w-11/12 md:w-full"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <ImpactMap />
-          </div>
+          {renderMapModalContent && <ImpactMap />}
         </div>
-      )}
+      </div>
+
       <div className="fixed top-4 left-4 z-50">
         <LanguageSelector />
       </div>
       <div
-        className={`flex h-screen w-full items-stretch justify-center background ${
-          showMap ? "blur-sm backdrop-blur-sm" : ""
-        }`}
+        className={`flex h-screen w-full items-stretch justify-center background 
+                   transition-[filter,backdrop-filter] duration-300 ease-in-out ${
+                     showMap ? "blur-sm backdrop-blur-sm" : ""
+                   }`}
       >
         <div className="w-3/5 p-4 m-8 flex flex-col">
           <Carousel
@@ -100,7 +118,7 @@ export default function Home() {
               className="bg-background text-foreground"
               onClick={() => setShowMap(true)}
             >
-              {/* TODO add icon */}
+              <Map className="mr-1" />
               {t("map.button")}
             </Button>
           </div>
