@@ -16,12 +16,32 @@
       "signUpTab": "Registrarse",
       "signUpPlaceholder": "Regístrate para obtener una cuenta"
     },
+    "signupForm": {
+      "usernameRequired": "El nombre de usuario debe contener al menos tres caracteres",
+      "passwordMinLength": "La contraseña debe tener al menos 8 caracteres",
+      "passwordMaxLength": "La contraseña no debe superar los 30 caracteres",
+      "passwordLowercase": "La contraseña debe contener al menos una letra minúscula",
+      "passwordUppercase": "La contraseña debe contener al menos una letra mayúscula",
+      "passwordNumber": "La contraseña debe contener al menos un número",
+      "passwordSpecialChar": "La contraseña debe contener al menos un carácter especial",
+      "confirmPasswordLabel": "Confirmar contraseña",
+      "confirmPasswordRequired": "La confirmación de la contraseña es obligatoria",
+      "passwordsDoNotMatch": "Las contraseñas no coinciden",
+      "emailRequired": "El correo electrónico es obligatorio",
+      "fullNameLabel": "Nombre completo",
+      "fullNameRequired": "El nombre completo es obligatorio",
+      "usernameLabel": "Nombre de usuario",
+      "passwordLabel": "Contraseña",
+      "emailLabel": "Correo electrónico",
+      "signUpButton": "Registrarse"
+    },
     "language": {
       "es": "Español",
       "en": "Inglés"
     },
     "map": {
-      "title": "¡Estamos aqui!"
+      "title": "¡Estamos aqui!",
+      "button": "Ver en Google Maps"
     }
   }
 }

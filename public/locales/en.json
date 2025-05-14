@@ -16,12 +16,32 @@
       "signUpTab": "Sign up",
       "signUpPlaceholder": "Sign up for an account"
     },
+    "signupForm": {
+      "usernameRequired": "Username must be at least 3 characters long",
+      "passwordMinLength": "Password must be at least 8 characters long",
+      "passwordMaxLength": "Password must not exceed 30 characters",
+      "passwordLowercase": "Password must contain at least one lowercase letter",
+      "passwordUppercase": "Password must contain at least one uppercase letter",
+      "passwordNumber": "Password must contain at least one number",
+      "passwordSpecialChar": "Password must contain at least one special character",
+      "confirmPasswordRequired": "Confirm password is required",
+      "passwordsDoNotMatch": "Passwords do not match",
+      "emailRequired": "Email is required",
+      "fullNameRequired": "Full name is required",
+      "fullNameLabel": "Full name",
+      "confirmPasswordLabel": "Confirm password",
+      "usernameLabel": "Username",
+      "passwordLabel": "Password",
+      "emailLabel": "Email",
+      "signUpButton": "Sign up"
+    },
     "language": {
       "es": "Spanish",
       "en": "English"
     },
     "map": {
-      "title": "Find us here!"
+      "title": "Find us here!",
+      "button": "View on Google Maps"
     }
   }
 }
