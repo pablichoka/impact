@@ -8,9 +8,9 @@ export const routing = defineRouting({
   defaultLocale: 'es',
   pathnames: {
     '/': '/',
-    '/pathnames': {
-      en: '/pathnames',
-      es: '/nombres-de-ruta'
+    '/dashboard': {
+      en: '/dashboard',
+      es: '/panel-de-control'
     }
   }
 });
