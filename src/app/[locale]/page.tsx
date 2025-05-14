@@ -18,16 +18,38 @@ import {
 } from "@components/shadcn/ui/tabs";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import SignUpForm from "@components/custom/SignUpForm";
+import { Button } from "@components/shadcn/ui/button";
+import { useState } from "react";
+import ImpactMap from "@components/custom/Map";
 
 export default function Home() {
   const t = useTranslations("frontpage");
+  const [showMap, setShowMap] = useState(false);
 
   return (
     <>
+      {showMap && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          onClick={() => setShowMap(false)}
+        >
+          <div
+            className="relative rounded-lg max-w-3xl w-11/12 md:w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <ImpactMap />
+          </div>
+        </div>
+      )}
       <div className="fixed top-4 left-4 z-50">
         <LanguageSelector />
       </div>
-      <div className="flex h-screen w-full items-stretch justify-center background">
+      <div
+        className={`flex h-screen w-full items-stretch justify-center background ${
+          showMap ? "blur-sm backdrop-blur-sm" : ""
+        }`}
+      >
         <div className="w-3/5 p-4 m-8 flex flex-col">
           <Carousel
             className="w-full h-full grow"
@@ -46,7 +68,7 @@ export default function Home() {
         </div>
 
         <div className="w-2/5 pt-4 flex flex-col items-center bg-primary text-black">
-          <div className="w-full h-3/5 justify-start max-w-sm p-2 rounded-lg items-center overflow-y-auto">
+          <div className="w-full h-9/10 justify-start max-w-sm p-2 rounded-lg items-center overflow-y-auto">
             <div className="flex flex-col items-center">
               <Image
                 src="/images/logo.png"
@@ -69,40 +91,18 @@ export default function Home() {
                 <LoginForm />
               </TabsContent>
               <TabsContent value="password">
-                {/* TODO create signup form */}
+                <SignUpForm />
               </TabsContent>
             </Tabs>
           </div>
-          <div className="h-2/5 w-full flex flex-col justify-center items-center ">
-            <div>
-              <h1 className="text-lg font-bold text-center mb-4">
-                {t("map.title")}
-              </h1>
-            </div>
-            <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
-              <Map
-                style={{
-                  width: "30vw",
-                  height: "30vh",
-                  borderRadius: "1rem",
-                  overflow: "hidden",
-                  marginBottom: "1rem",
-                }}
-                defaultCenter={{
-                  lat: 38.05549193859103,
-                  lng: -1.217749291324227,
-                }}
-                defaultZoom={15}
-                gestureHandling={"greedy"}
-                disableDefaultUI={true}
-                mapId={process.env.NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID}
-                mapTypeId="terrain"
-              >
-                <AdvancedMarker
-                  position={{ lat: 38.05549193859103, lng: -1.217749291324227 }}
-                />
-              </Map>
-            </APIProvider>
+          <div className="w-full h-1/10 flex justify-center items-center mt-4">
+            <Button
+              className="bg-background text-foreground"
+              onClick={() => setShowMap(true)}
+            >
+              {/* TODO add icon */}
+              {t("map.button")}
+            </Button>
           </div>
         </div>
       </div>
