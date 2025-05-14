@@ -14,7 +14,8 @@
       "loginButton": "Iniciar sesión",
       "loginTab": "Iniciar sesión",
       "signUpTab": "Registrarse",
-      "signUpPlaceholder": "Regístrate para obtener una cuenta"
+      "signUpPlaceholder": "Regístrate para obtener una cuenta",
+      "forgotPassword": "¿Ha olvidado su contraseña?"
     },
     "signupForm": {
       "usernameRequired": "El nombre de usuario debe contener al menos tres caracteres",
@@ -41,7 +42,7 @@
     },
     "map": {
       "title": "¡Estamos aqui!",
-      "button": "Ver en Google Maps"
+      "button": "Encuéntranos aquí"
     }
   }
 }

@@ -14,7 +14,8 @@
       "loginButton": "Log in",
       "loginTab": "Login",
       "signUpTab": "Sign up",
-      "signUpPlaceholder": "Sign up for an account"
+      "signUpPlaceholder": "Sign up for an account",
+      "forgotPassword": "Forgot your password?"
     },
     "signupForm": {
       "usernameRequired": "Username must be at least 3 characters long",
@@ -41,7 +42,7 @@
     },
     "map": {
       "title": "Find us here!",
-      "button": "View on Google Maps"
+      "button": "Find us here"
     }
   }
 }
