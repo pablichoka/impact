@@ -94,7 +94,7 @@ export default function LoginForm() {
         <Button
           onClick={form.handleSubmit((data) => {
             console.log(data);
-            router.push("/dashboard");
+            router.push("/home");
           })}
           className="w-full mt-4 bg-background text-foreground"
         >

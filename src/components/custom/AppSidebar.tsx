@@ -2,6 +2,11 @@
 
 import { Button } from "@components/shadcn/ui/button";
 import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@components/shadcn/ui/collapsible";
+import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
@@ -14,7 +19,15 @@ import {
   Sidebar,
   SidebarRail,
 } from "@components/shadcn/ui/sidebar";
-import { Calendar, Home, Settings, Users } from "lucide-react";
+import {
+  CalendarMonth,
+  Home,
+  Settings,
+  People,
+  UnfoldMore,
+  AdminPanelSettings,
+  ArrowRight,
+} from "@mui/icons-material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -22,15 +35,17 @@ import { useState } from "react";
 // Mapeo de strings a componentes
 const iconMap = {
   Home,
-  Users,
-  Calendar,
+  People,
+  CalendarMonth,
   Settings,
+  AdminPanelSettings,
 };
 
 type SidebarItem = {
   title: string;
   icon: keyof typeof iconMap;
   url: string;
+  collapsible: boolean;
 };
 
 type SidebarItems = {
@@ -43,15 +58,19 @@ export default function AppSidebar() {
   const [activeItem, setActiveItem] = useState("Home");
 
   const adminItems: SidebarItem[] = [
-    { title: "Home", icon: "Home", url: "#" },
-    { title: "Users", icon: "Users", url: "#" },
-    { title: "Settings", icon: "Settings", url: "#" },
+    { title: "Users", icon: "People", url: "#", collapsible: true },
+    {
+      title: "Admin settings",
+      icon: "AdminPanelSettings",
+      url: "#",
+      collapsible: true,
+    },
   ];
 
   const userItems: SidebarItem[] = [
-    { title: "Home", icon: "Home", url: "#" },
-    { title: "Calendar", icon: "Calendar", url: "#" },
-    { title: "Settings", icon: "Settings", url: "#" },
+    { title: "Home", icon: "Home", url: "#", collapsible: false },
+    { title: "Calendar", icon: "CalendarMonth", url: "#", collapsible: true },
+    { title: "Settings", icon: "Settings", url: "#", collapsible: false },
   ];
 
   const sidebarItems: SidebarItems = [
@@ -70,30 +89,44 @@ export default function AppSidebar() {
       </SidebarHeader>
       {sidebarItems.map((categoryGroup) => (
         <div key={categoryGroup.category}>
-          {/* //TODO add collapsible component */}
           <SidebarGroup className="flex flex-col flex-grow">
             <SidebarGroupLabel className="p-4 text-black">
               {categoryGroup.category}
             </SidebarGroupLabel>
-            <SidebarContent className="flex flex-col flex-grow">
+            <SidebarContent className="flex flex-col flex-grow bg-white/20 p-2 rounded-lg">
               <SidebarMenu className="flex-grow">
                 {categoryGroup.items.map((menuItem) => {
                   const Icon = iconMap[menuItem.icon];
                   return (
                     <SidebarMenuItem key={menuItem.title}>
-                      <SidebarMenuButton
-                        isActive={activeItem === menuItem.title}
-                        onClick={() => {
-                          setActiveItem(menuItem.title);
-                          // router.push(menuItem.url);
-                        }}
-                        asChild
-                      >
-                        <a href={menuItem.url} className="flex items-center">
-                          {Icon && <Icon className="mr-2 h-5 w-5" />}
-                          {menuItem.title}
-                        </a>
-                      </SidebarMenuButton>
+                      {menuItem.collapsible && (
+                        <Collapsible key={menuItem.title}>
+                          <SidebarMenuButton
+                            isActive={activeItem === menuItem.title}
+                            onClick={() => {
+                              setActiveItem(menuItem.title);
+                              // router.push(menuItem.url);
+                            }}
+                            asChild
+                          >
+                            <span className="flex items-center justify-between">
+                              <a
+                                href={menuItem.url}
+                                className="flex items-center"
+                              >
+                                {Icon && <Icon className="mr-2 h-5 w-5" />}
+                                {menuItem.title}
+                              </a>
+                              <CollapsibleTrigger>
+                                <ArrowRight />
+                              </CollapsibleTrigger>
+                            </span>
+                          </SidebarMenuButton>
+                          <CollapsibleContent>
+                            <UnfoldMore className="ml-4" />
+                          </CollapsibleContent>
+                        </Collapsible>
+                      )}
                     </SidebarMenuItem>
                   );
                 })}
@@ -102,15 +135,17 @@ export default function AppSidebar() {
           </SidebarGroup>
         </div>
       ))}
-      <SidebarFooter className="p-4">
-        <Button
-          variant="outline"
-          className="w-full"
-          onClick={() => router.push("/")}
-        >
-          Cerrar Sesión
-        </Button>
-      </SidebarFooter>
+      <div className="flex flex-col mt-auto">
+        <SidebarFooter className="p-4">
+          <Button
+            variant="outline"
+            className="w-full cursor-pointer"
+            onClick={() => router.push("/")}
+          >
+            Cerrar Sesión
+          </Button>
+        </SidebarFooter>
+      </div>
       <SidebarRail />
     </Sidebar>
   );
